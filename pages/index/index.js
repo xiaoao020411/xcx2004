@@ -5,6 +5,7 @@ const app = getApp()
 Page({
   data: {
     motto: 'Hello World',
+    name:'你好',
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
@@ -16,6 +17,26 @@ Page({
     })
   },
   onLoad: function () {
+    console.log(this)
+    let _this=this;
+    //发起网络请求
+    wx.request({
+      url: 'http://weixin.2004.com/wx/test', //仅为示例，并非真实的接口地址
+      data: {
+        x: 'xxx',
+        y: 'yyy'
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success (res) {
+        console.log(this)
+        _this.setData({
+          goods_name:res.data.goods_name,
+          price:res.data.price
+        })
+      }
+    })
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
