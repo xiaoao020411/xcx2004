@@ -4,11 +4,12 @@ const app = getApp()
 
 Page({
   data: {
-    motto: 'Hello World',
-    name:'你好',
-    userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    banners: ['/images/1.jpg', '/images/2.jpg', '/images/3.jpg'],
+    indicatorDots: true,
+    vertical: false,
+    autoplay: true,
+    interval: 2000,
+    duration: 500
   },
   //事件处理函数
   bindViewTap: function() {
@@ -21,7 +22,7 @@ Page({
     let _this=this;
     //发起网络请求
     wx.request({
-      url: 'http://weixin.2004.com/wx/test', //仅为示例，并非真实的接口地址
+      url: 'http://weixin.2004.com/wx/goods', //仅为示例，并非真实的接口地址
       data: {
         x: 'xxx',
         y: 'yyy'
@@ -32,8 +33,7 @@ Page({
       success (res) {
         console.log(this)
         _this.setData({
-          goods_name:res.data.goods_name,
-          price:res.data.price
+          data:res.data
         })
       }
     })

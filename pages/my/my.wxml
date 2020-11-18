@@ -1,0 +1,3 @@
+<view>
+  <button type="primary" bindtap="btnLogin"> 登陆 </button>
+</view>

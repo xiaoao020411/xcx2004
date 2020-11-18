@@ -1,4 +1,4 @@
-// pages/goods/goods.js
+// pages/my/my.js
 Page({
 
   /**
@@ -7,7 +7,28 @@ Page({
   data: {
 
   },
-
+  btnLogin:function(e){
+    wx.login({
+      success (res) {
+        if (res.code) {
+          //发起网络请求
+          wx.request({
+            url: 'http://weixin.2004.com/wx/login',
+            data: {
+              code: res.code
+            }
+          })
+          wx.setStorage({
+            key:"key",
+            data:"value"
+          })
+        } else {
+          console.log('登录失败！' + res.errMsg)
+        }
+      }
+    })
+  },
+  
   /**
    * 生命周期函数--监听页面加载
    */
