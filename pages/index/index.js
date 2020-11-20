@@ -9,7 +9,14 @@ Page({
     vertical: false,
     autoplay: true,
     interval: 2000,
-    duration: 500
+    duration: 500,
+    list:[],
+    page: 1,     // 列表 页号
+    pagesize:10,  //列表 大小
+  },
+  onReachBottom: function () {
+    this.data.page++;
+    this.getGoodsList();
   },
   //事件处理函数
   bindViewTap: function() {
@@ -17,23 +24,24 @@ Page({
       url: '../logs/logs'
     })
   },
-  onLoad: function () {
-    console.log(this)
+ 
+  getGoodsList: function () {
     let _this=this;
     //发起网络请求
     wx.request({
-      url: 'http://weixin.2004.com/wx/goods', //仅为示例，并非真实的接口地址
-      data: {
-        x: 'xxx',
-        y: 'yyy'
+      url: 'http://weixin.2004.com/wx/goods',
+      data:{
+        page:_this.data.page,   //分页 页号
+        size:_this.data.pagesize
       },
       header: {
-        'content-type': 'application/json' // 默认值
+        'content-type': 'application/json'
       },
-      success (res) {
-        console.log(this)
+      success(res){
+        console.log(res)
+        let new_list = _this.data.list.concat(res.data.data)
         _this.setData({
-          data:res.data
+          list: new_list
         })
       }
     })
@@ -71,5 +79,22 @@ Page({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
-  }
+  },
+  //商品详情
+  goodsDetail:function(e)
+  {
+    //获取被点击的 商品id
+    let goods_id = e.currentTarget.dataset.goodsid;
+    
+    //切换至 详情页
+    wx.redirectTo({
+      url: '/pages/detail/detail?goods_id='+goods_id
+    });
+  },
+  onLoad: function () {
+    this.getGoodsList();
+  },
+  
+
 })
+
