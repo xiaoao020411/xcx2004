@@ -4,7 +4,9 @@
     "pages/cart/cart",
     "pages/detail/detail",
     "pages/my/my",
-    "pages/order/order"
+    "pages/order/order",
+    "pages/login",
+    "pages/login/login"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -20,7 +22,6 @@
         "iconPath": "/images/home.png",
         "selectedIconPath": "/images/home-select.png"
       },
-      
       {
         "pagePath": "pages/cart/cart",
         "text": "购物车",

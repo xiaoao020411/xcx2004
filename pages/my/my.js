@@ -29,6 +29,33 @@ Page({
     })
   },
   
+login:function(u)
+{
+  //获取用户信息
+  let userinfo = u.detail.userInfo;
+  wx.login({
+    success (res) {
+      if (res.code) {
+        //发起网络请求
+        wx.request({
+          url: 'http://weixin.2004.com/wx/xcxlogin?code=' + res.code,
+          method: 'post',
+          header:{'content-type':'application/json'},
+          data: {
+            u: userinfo
+          },
+          success: function(res){
+              //保存token
+              wx.setStorageSync('toekn',res.data.data.token)
+          }
+        })
+      } else {
+        console.log('登录失败！' + res.errMsg)
+      }
+    }
+  })
+},
+
   /**
    * 生命周期函数--监听页面加载
    */
